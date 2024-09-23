@@ -27,7 +27,6 @@ def get_initial_jsessionid():
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
     }
-
     proxies = {
         "http": PROXY_URL,
         "https": PROXY_URL
@@ -43,3 +42,27 @@ def get_initial_jsessionid():
         print("Failed to get JSESSIONID")
         pass
     return None
+
+def create_captcha_task():
+    task_data = {
+        'clientKey': CAPSOLVER_API_KEY,
+        'task': {
+            'type': 'RecaptchaV3EnterpriseTask',
+            'websiteURL': SITE_URL,
+            'websiteKey': SITE_KEY,
+            'proxyType': proxy_scheme,
+            'proxyAddress': proxy_host,
+            'proxyPort': int(proxy_port),
+            'proxyLogin': proxy_username,
+            'proxyPassword': proxy_password,
+        }
+    }
+
+    response = requests.post('https://api.capsolver.com/createTask', json=task_data)
+    response_data = response.json()
+
+    if response.status_code == 200 and response_data.get("errorId") == 0:
+        return response_data.get("taskId")
+    else:
+        print("Error creating task:", response.text)
+        return None
