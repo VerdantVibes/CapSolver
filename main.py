@@ -11,3 +11,10 @@ SITE_KEY = os.getenv('SITE_KEY')
 LICENSE_FILE = os.getenv('LICENSE_FILE')
 CAPSOLVER_API_KEY = os.getenv('CAPSOLVER_API_KEY')
 PROXY_URL = os.getenv('PROXY_URL')
+
+# Extract proxy details
+proxy_type = 'http'
+proxy_scheme, proxy_address = PROXY_URL.split('://')
+proxy_credentials, proxy_host_port = proxy_address.split('@')
+proxy_username, proxy_password = proxy_credentials.split(':')
+proxy_host, proxy_port = proxy_host_port.split(':')
