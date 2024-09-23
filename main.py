@@ -66,3 +66,17 @@ def create_captcha_task():
     else:
         print("Error creating task:", response.text)
         return None
+    
+def get_captcha_token(task_id):
+    task_result_url = 'https://api.capsolver.com/getTaskResult'
+    result_data = {'clientKey': CAPSOLVER_API_KEY, 'taskId': task_id}
+
+    while True:
+        result_response = requests.post(task_result_url, json=result_data)
+        result_data = result_response.json()
+
+        if result_response.status_code == 200 and result_data.get("status") == 'ready':
+            return result_data.get('solution', {}).get('gRecaptchaResponse')
+        elif result_response.status_code != 200 or result_data.get("status") == 'failed':
+            print("Error retrieving task result:", result_response.text)
+            return None
