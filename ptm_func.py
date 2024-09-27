@@ -77,3 +77,15 @@ def format_phone(x):
     else:
         x = ''
     return x
+
+def format_post(x):
+    if x != None:
+        x = x.replace(" ", "")
+        x = x.replace(")", "")
+        x = x.replace("(", "")
+        x = x.replace("-", "")
+        x = x.replace(".", "")
+        x = x.upper()[0:6]
+    else:
+        x = ''
+    return x
