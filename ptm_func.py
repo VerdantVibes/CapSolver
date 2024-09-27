@@ -24,3 +24,14 @@ def get_addr_info(start_num, the_list, lastname, firstname, lic, gender, b1, ext
     addr2_pattern = r",\s*(.*?),"
     city_prov_pattern = r",\s*([^,]+)\s+([A-Z]{2})"
     post_pattern = r"([A-Z]\d[A-Z]\s?\d[A-Z]\d)"
+
+    addr1_match = re.search(addr1_pattern, full_addr)
+    addr2_match = re.search(addr2_pattern, full_addr)
+    city_prov_match = re.search(city_prov_pattern, full_addr)
+    post_match = re.search(post_pattern, full_addr)
+
+    addr1 = addr1_match.group(1).strip() if addr1_match else '',
+    addr2 = addr2_match.group(1).strip() if addr2_match else '',
+    city = city_prov_match.group(1).strip() if city_prov_match else '',
+    prov = city_prov_match.group(2).strip() if city_prov_match else '',
+    post = post_match.group(1).replace(" ", "") if post_match else '',
