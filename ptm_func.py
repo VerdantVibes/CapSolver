@@ -7,6 +7,9 @@ Created on Tue May 24 15:38:51 2022
 import unidecode
 import re
 
+def norm(string):
+    decoded = unidecode.unidecode(string) if string else None
+    return decoded
 
 def get_addr_info(start_num, the_list, lastname, firstname, lic, gender, b1, extra1, extra2, extra3, extra4, extra5):
     # Function to generate address information
@@ -56,14 +59,10 @@ def get_addr_info(start_num, the_list, lastname, firstname, lic, gender, b1, ext
         office = '1'
     else:
         office = '2'
-    
+        
     addr_row = [lastname,firstname,'',office,firm,addr1,addr2,city,prov,post,phone,'','','','',gender,lic,'','',b1,'','','','','','','','','','','',extra1,extra2,extra3,extra4,extra5,'','']
     
     return addr_row
-
-def norm(string):
-    decoded = unidecode.unidecode(string) if string else None
-    return decoded
 
 def format_phone(x):
     if x != None:
@@ -95,14 +94,11 @@ def extract_data(a,s1,s2):
     x = a.partition(s1)[2].partition(s2)[0]
     return x
 
-# Decode email addresses that have been obfuscated using CloudFlare email obfuscation
-# email will look something like this:
-# href="/cdn-cgi/l/email-protection#4f242e3b2a232e3a3d262a3d0f27203b222e2623612c2022"
 def cfDecodeEmail(encodedString):
     r = int(encodedString[:2],16)
     email = ''.join([chr(int(encodedString[i:i+2], 16) ^ r) for i in range(2, len(encodedString), 2)])
     return email
-    
+
 def convert_html(x):
     if x != None:
         x = x.replace("&NBSP;", " ")
@@ -144,10 +140,7 @@ def convert_html(x):
     else:
         x = ''
     return x
-    
-# Split the fullname into its components
-# accepts fullname and returns firstname, lastname, suffix
-# call as: firstname, lastname, suffix = splitfullname(fullname)
+
 def splitfullname(fullname):
     firstname = ""
     lastname = ""
@@ -185,7 +178,7 @@ def splitfullname(fullname):
             fullname = fullname.replace('MME. ', '')
         elif fullname.startswith("MME "):
             fullname = fullname.replace('MME ', '')
-        
+            
         # First remove any suffixes
         if fullname.endswith(' JR'):
             suffix = 'JR'
@@ -284,8 +277,6 @@ def splitfullname(fullname):
     	    lastname = splitlastname[1]
         
     return firstname, lastname, suffix
-    
-    
 
 def get_prov_abbrev(prov):
     
@@ -322,7 +313,6 @@ def get_prov_abbrev(prov):
         
     return prov_abbrev
 
-    
 def get_spec_code(spec_desc):
     spec_code = ''
     print(spec_desc)
@@ -904,40 +894,4 @@ def get_spec_code(spec_desc):
         spec_code = '56'
     else:
         spec_code = spec_desc
-    return spec_code	           
-    
-def get_spec_code_dent(spec_desc):
-    if spec_desc =='GENERAL PRACTITIONER':
-        spec_code = '95'
-    elif spec_desc =='ENDODONTICS':
-        spec_code = '97'
-    elif spec_desc =='ENDODONTIST':
-        spec_code = '97'
-    elif spec_desc =='ORAL AND MAXILLOFACIAL SURGERY':
-        spec_code = '96'
-    elif spec_desc =='ORAL & MAXILLOFACIAL SURGEON':
-        spec_code = '96'
-    elif spec_desc =='PROSTHODONTICS':
-        spec_code = '94'
-    elif spec_desc =='ORTHODONTIST':
-        spec_code = 'OD'
-    elif spec_desc =='ORTHODONTICS AND DENTOFACIAL ORTHOPEDICS':
-        spec_code = 'OD'
-    elif spec_desc =='ORAL MEDICINE':
-        spec_code = 'OM'
-    elif spec_desc =='ORAL PATHOLOGY':
-        spec_code = 'PT'
-    elif spec_desc =='PERIODONTICS':
-        spec_code = '93'
-    elif spec_desc =='PERIODONTIST':
-        spec_code = '93'
-    elif spec_desc =='PEDIATRIC DENTISTRY':
-        spec_code = '92'
-    elif spec_desc =='PAEDIATRIC DENTIST':
-        spec_code = '92'
-    elif spec_desc =='PUBLIC HEALTH DENTIST':
-        spec_code = '98'
-    else:
-        spec_code = spec_desc
     return spec_code
-    
