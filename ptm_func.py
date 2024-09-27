@@ -89,3 +89,54 @@ def format_post(x):
     else:
         x = ''
     return x
+
+def extract_data(a,s1,s2):
+    x = a.partition(s1)[2].partition(s2)[0]
+    return x
+
+def cfDecodeEmail(encodedString):
+    r = int(encodedString[:2],16)
+    email = ''.join([chr(int(encodedString[i:i+2], 16) ^ r) for i in range(2, len(encodedString), 2)])
+    return email
+
+def convert_html(x):
+    if x != None:
+        x = x.replace("&NBSP;", " ")
+        x = x.replace("&nbsp;", " ")
+        x = x.replace("&#39;", "'")
+        x = x.replace("&AMP;", "&")
+        x = x.replace("&amp;", "&")
+        x = x.replace("&#200;", "E")
+        x = x.replace("&#201;", "E")
+        x = x.replace("&#232;", "E")
+        x = x.replace("&#233;", "E")
+        x = x.replace("&#234;", "E")
+        x = x.replace("&#235;", "E")
+        x = x.replace("&#192;", "A")
+        x = x.replace("&#194;", "A")
+        x = x.replace("&#196;", "A")
+        x = x.replace("&#224;", "A")
+        x = x.replace("&#226;", "A")
+        x = x.replace("&#228;", "A")
+        x = x.replace("&#229;", "A")
+        x = x.replace("&#212;", "O")
+        x = x.replace("&#214;", "O")
+        x = x.replace("&#242;", "O")
+        x = x.replace("&#244;", "O")
+        x = x.replace("&#246;", "O")
+        x = x.replace("&#248;", "O")
+        x = x.replace("&#206;", "I")
+        x = x.replace("&#238;", "I")
+        x = x.replace("&#239;", "I")
+        x = x.replace("&#220;", "U")
+        x = x.replace("&#231;", "C")
+        x = x.replace("&#223;", "B")
+        x = x.replace("&#230;", "AE")
+        x = x.replace("&#160;", " ") # space
+        x = x.replace("&QUOT;", '"') # double quote
+        x = x.replace("&quot;", '"') # double quote
+        x = x.replace("&#174;", "") # ® so use nothing
+        x = x.replace("&#176;", "") # degree so use nothing
+    else:
+        x = ''
+    return x
