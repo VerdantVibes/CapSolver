@@ -59,3 +59,21 @@ def get_addr_info(start_num, the_list, lastname, firstname, lic, gender, b1, ext
         office = '1'
     else:
         office = '2'
+        
+    addr_row = [lastname,firstname,'',office,firm,addr1,addr2,city,prov,post,phone,'','','','',gender,lic,'','',b1,'','','','','','','','','','','',extra1,extra2,extra3,extra4,extra5,'','']
+    
+    return addr_row
+
+def format_phone(x):
+    if x != None:
+        x = x.replace("+1","")
+        x = x.replace(" ", "")
+        x = x.replace(")", "")
+        x = x.replace("(", "")
+        x = x.replace("-", "")
+        x = x.replace(".", "")
+        x = x.replace("*", "")
+        x = x.replace("#", "")
+    else:
+        x = ''
+    return x
