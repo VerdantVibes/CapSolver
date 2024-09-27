@@ -140,3 +140,41 @@ def convert_html(x):
     else:
         x = ''
     return x
+
+def splitfullname(fullname):
+    firstname = ""
+    lastname = ""
+    suffix = ""
+    fullname = fullname.strip().upper()
+    vCountSpaces = fullname.count(" ")
+    if (vCountSpaces == 0):
+        lastname = fullname
+    elif (vCountSpaces == 1):
+        firstname = fullname.partition(" ")[0]
+        lastname = fullname.partition(" ")[2]
+    else:
+        # Repmove any prefixes
+        if fullname.startswith("DR. "):
+            fullname = fullname.replace('DR. ', '')
+        elif fullname.startswith("DR "):
+            fullname = fullname.replace('DR ', '')
+        elif fullname.startswith("DRE "):
+            fullname = fullname.replace('DRE ', '')
+        elif fullname.startswith("MR. "):
+            fullname = fullname.replace('MR. ', '')
+        elif fullname.startswith("MR "):
+            fullname = fullname.replace('MR ', '')
+        elif fullname.startswith("MRS. "):
+            fullname = fullname.replace('MRS. ', '')
+        elif fullname.startswith("MRS "):
+            fullname = fullname.replace('MRS ', '')
+        elif fullname.startswith("MISS "):
+            fullname = fullname.replace('MISS ', '')
+        elif fullname.startswith("MS. "):
+            fullname = fullname.replace('MS. ', '')
+        elif fullname.startswith("MS "):
+            fullname = fullname.replace('MS ', '')
+        elif fullname.startswith("MME. "):
+            fullname = fullname.replace('MME. ', '')
+        elif fullname.startswith("MME "):
+            fullname = fullname.replace('MME ', '')
