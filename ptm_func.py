@@ -7,6 +7,9 @@ Created on Tue May 24 15:38:51 2022
 import unidecode
 import re
 
+def norm(string):
+    decoded = unidecode.unidecode(string) if string else None
+    return decoded
 
 def get_addr_info(start_num, the_list, lastname, firstname, lic, gender, b1, extra1, extra2, extra3, extra4, extra5):
     # Function to generate address information
@@ -35,3 +38,24 @@ def get_addr_info(start_num, the_list, lastname, firstname, lic, gender, b1, ext
     city = city_prov_match.group(1).strip() if city_prov_match else '',
     prov = city_prov_match.group(2).strip() if city_prov_match else '',
     post = post_match.group(1).replace(" ", "") if post_match else '',
+    
+    addr1 = norm(addr1[0])
+    addr2 = norm(addr2[0])
+    city = norm(city[0])
+    prov = norm(prov[0])
+    post = norm(post[0])
+
+    if re.match(r"^\d+[-\d]*$", addr1): 
+        addr1 += ' ' + addr2
+        addr2 = ''
+
+    phone = the_list[start_num+3].text
+    
+    if firm:
+        firm = firm.strip().upper()
+        firm = norm(firm)
+    
+    if start_num < 5:
+        office = '1'
+    else:
+        office = '2'
