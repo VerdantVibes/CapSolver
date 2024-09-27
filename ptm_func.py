@@ -277,3 +277,38 @@ def splitfullname(fullname):
     	    lastname = splitlastname[1]
         
     return firstname, lastname, suffix
+
+def get_prov_abbrev(prov):
+    
+    prov_abbrev = ''
+    
+    if prov == 'ALBERTA':
+            prov_abbrev = 'AB'
+    elif prov == 'BRITISH COLUMBIA':
+            prov_abbrev = 'BC'
+    elif prov == 'MANITOBA':
+            prov_abbrev = 'MB'
+    elif prov == 'NEW BRUNSWICK':
+            prov_abbrev = 'NB'
+    elif prov == 'NEWFOUNDLAND AND LABRADOR':
+            prov_abbrev = 'NL'
+    elif prov =='NORTHWEST TERRITORIES':
+            prov_abbrev = 'NT'
+    elif prov == 'NOVA SCOTIA':
+            prov_abbrev = 'NS'
+    elif prov == 'NUNAVUT':
+            prov_abbrev = 'NU'
+    elif prov == 'ONTARIO':
+            prov_abbrev = 'ON'
+    elif prov == 'PRINCE EDWARD ISLAND':
+            prov_abbrev = 'PEI'
+    elif prov == 'QUEBEC':
+            prov_abbrev = 'QC'
+    elif prov == 'SASKATCHEWAN':
+            prov_abbrev = 'SK'
+    elif prov == 'YUKON':
+            prov_abbrev = 'YT'
+    else:
+        prov_abbrev = prov
+        
+    return prov_abbrev
